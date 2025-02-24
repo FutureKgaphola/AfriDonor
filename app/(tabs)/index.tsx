@@ -1,56 +1,72 @@
-import { Image, StyleSheet, Platform } from 'react-native';
-
-import { HelloWave } from '@/components/HelloWave';
-import ParallaxScrollView from '@/components/ParallaxScrollView';
-import { ThemedText } from '@/components/ThemedText';
-import { ThemedView } from '@/components/ThemedView';
+import Banner from '@/components/Banner';
+import CardViews from '@/components/CardViews/CardViews';
+import { FlatList, Keyboard, ScrollView, View } from 'react-native';
+import { StyleSheet, Text } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { TextInput } from 'react-native-paper';
+import { useState } from 'react';
+import { appGreeen } from '@/constants/style';
+import Ionicons from '@expo/vector-icons/Ionicons';
+import { TouchableWithoutFeedback } from 'react-native';
+import AppLogo from '@/components/AppLogo';
+import PostView from '@/components/CardViews/postsView';
+import { Image } from 'react-native';
+import { samplePost } from '@/constants/DummyData';
 
 export default function HomeScreen() {
+  const [text, setText] = useState("");
   return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
-      headerImage={
-        <Image
-          source={require('@/assets/images/partial-react-logo.png')}
-          style={styles.reactLogo}
-        />
-      }>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Welcome!</ThemedText>
-        <HelloWave />
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 1: Try it</ThemedText>
-        <ThemedText>
-          Edit <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> to see changes.
-          Press{' '}
-          <ThemedText type="defaultSemiBold">
-            {Platform.select({
-              ios: 'cmd + d',
-              android: 'cmd + m',
-              web: 'F12'
-            })}
-          </ThemedText>{' '}
-          to open developer tools.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 2: Explore</ThemedText>
-        <ThemedText>
-          Tap the Explore tab to learn more about what's included in this starter app.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
-        <ThemedText>
-          When you're ready, run{' '}
-          <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText> to get a fresh{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> directory. This will move the current{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> to{' '}
-          <ThemedText type="defaultSemiBold">app-example</ThemedText>.
-        </ThemedText>
-      </ThemedView>
-    </ParallaxScrollView>
+    <SafeAreaView>
+      <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+
+        <>
+          <AppLogo height={40} width={40} title='AfriDonor' fontSize={20} />
+          <View style={{ marginBottom: 2 }}>
+            <TextInput
+              value={text}
+              mode="outlined"
+              left={<TextInput.Icon icon={() => <Ionicons name="search-circle-outline" size={24} color="black" />} />}
+              style={{ marginLeft: 10, marginRight: 10, marginTop: 10 }}
+              placeholder='search for your favourite meal...'
+              theme={{ colors: { primary: appGreeen }, roundness: 25 }}
+              onChangeText={text => setText(text)}
+            />
+          </View>
+          <FlatList
+          showsVerticalScrollIndicator={false}
+            style={{ marginBottom: 82 }}
+            data={[
+              { key: '1', type: 'banner' },
+
+              { key: '2', type: 'cardView' },
+              { key: '3', type: 'postsView' },
+            ]}
+            renderItem={({ item }) => {
+              if (item.type === 'banner') {
+                return <Banner />;
+              } else if (item.type === 'cardView') {
+                return <CardViews />
+              }
+              else if (item.type === 'postsView') {
+                return  (
+                  <FlatList
+                  data={samplePost}
+                  keyExtractor={(item)=>item.id}
+                  renderItem={({item})=><PostView key={item.id} item={item}/>}
+                  />
+                )
+                
+              }
+              else {
+                return <Text>Unknown item type</Text>;
+              }
+            }}
+            keyExtractor={(item) => item.key}
+          />
+        </>
+      </TouchableWithoutFeedback>
+
+    </SafeAreaView>
   );
 }
 
