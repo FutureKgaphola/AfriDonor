@@ -11,15 +11,7 @@ export default function TabLayout() {
       screenOptions={{
         tabBarActiveTintColor: Colors.light.tabIconSelected,
         headerShown: false,
-        tabBarStyle: Platform.select({
-          ios: {
-            // Use a transparent background on iOS to show the blur effect
-            background:'transparent',
-            borderTopWidth: 0,
-            elevation: 0,
-          },
-          default: {},
-        }),
+        tabBarStyle: { display: "flex" },
       }}>
       <Tabs.Screen
         name="index"
@@ -47,6 +39,13 @@ export default function TabLayout() {
         options={{
           title: 'Profile',
           tabBarIcon: ({ color }) => <FontAwesome5 name="user-circle" size={24} color={color}/>,
+        }}
+      />
+      <Tabs.Screen
+        name="qrScreen"
+        options={{
+          title: '',
+          href:null
         }}
       />
     </Tabs>

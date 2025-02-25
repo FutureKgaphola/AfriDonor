@@ -4,6 +4,7 @@ import { s } from "react-native-wind";
     Image_Background: s`flex-1 rounded-lg overflow-hidden`,
     primbtnStyle:s`flex-wrap bg-white p-3 rounded-md w-fit mt-4`,
     secbtnStyle:s`flex-wrap bg-green p-3 rounded-md w-fit mt-4`,
+    primMbtnStyle:s`flex-1 bg-white p-3 rounded-md w-fit mt-4`,
     cardStyle:s`bg-white rounded-lg p-2 m-2`,
     btnWrapper:s`flex-row`,
     cardTitle:s`text-2xl font-bold text-white underline`,

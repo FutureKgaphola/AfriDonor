@@ -1,25 +1,27 @@
 import Banner from '@/components/Banner';
 import CardViews from '@/components/CardViews/CardViews';
-import { FlatList, Keyboard, ScrollView, View } from 'react-native';
+import { FlatList, Keyboard, View } from 'react-native';
 import { StyleSheet, Text } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { TextInput } from 'react-native-paper';
-import { useState } from 'react';
+import { Fragment, useState } from 'react';
 import { appGreeen } from '@/constants/style';
-import Ionicons from '@expo/vector-icons/Ionicons';
+import {MaterialIcons,Ionicons} from '@expo/vector-icons';
 import { TouchableWithoutFeedback } from 'react-native';
 import AppLogo from '@/components/AppLogo';
 import PostView from '@/components/CardViews/postsView';
-import { Image } from 'react-native';
 import { samplePost } from '@/constants/DummyData';
 
 export default function HomeScreen() {
   const [text, setText] = useState("");
+  const [isvisible,setVisibility]=useState(false);
+  Keyboard.addListener('keyboardDidShow',()=>setVisibility(true));
+  Keyboard.addListener('keyboardDidHide',()=>{setVisibility(false);setText("");});
   return (
     <SafeAreaView>
       <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
 
-        <>
+        <Fragment>
           <AppLogo height={40} width={40} title='AfriDonor' fontSize={20} />
           <View style={{ marginBottom: 2 }}>
             <TextInput
@@ -30,11 +32,12 @@ export default function HomeScreen() {
               placeholder='search for your favourite meal...'
               theme={{ colors: { primary: appGreeen }, roundness: 25 }}
               onChangeText={text => setText(text)}
+              right={<TextInput.Icon icon={()=> isvisible ? <MaterialIcons onPress={()=>Keyboard.dismiss()} name="cancel" size={24} color="#B4B4B8" /> :null}/>}
             />
           </View>
           <FlatList
           showsVerticalScrollIndicator={false}
-            style={{ marginBottom: 82 }}
+            style={{ marginBottom: 85 }}
             data={[
               { key: '1', type: 'banner' },
 
@@ -55,7 +58,6 @@ export default function HomeScreen() {
                   renderItem={({item})=><PostView key={item.id} item={item}/>}
                   />
                 )
-                
               }
               else {
                 return <Text>Unknown item type</Text>;
@@ -63,7 +65,7 @@ export default function HomeScreen() {
             }}
             keyExtractor={(item) => item.key}
           />
-        </>
+        </Fragment>
       </TouchableWithoutFeedback>
 
     </SafeAreaView>

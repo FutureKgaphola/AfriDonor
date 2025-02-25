@@ -8,7 +8,6 @@ const CardViews = () => {
     return (
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', gap: 5 }}>
             <ImageBackground
-                resizeMode="center"
                 source={require('../../assets/images/eggnet.jpg')} style={{ padding: 20 }}>
                 <View style={{ padding: 20, overflow: 'hidden', borderWidth: 2, borderColor: 'white', backgroundColor: 'white' }}>
                     <Text style={{ fontSize: 25 }}>Get to meet our sponsors</Text>

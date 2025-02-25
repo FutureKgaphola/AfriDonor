@@ -100,7 +100,19 @@ const samplePost:sampleStructure[]=[
         ,message:Lorems,pictures:[{key:'1',url:require('../assets/images/pasta.jpg')},
             {key:'2',url:require('../assets/images/hum.jpg')}
         ],
-        reactions:6,day:'4d.'
-    }
+        reactions:697,day:'4d.'
+    },
+    {id:'3',profileImage:require('../assets/sponsors/spar.jpg'),
+        name:'Spar',subtitle:'Good For You.'
+        ,message:Lorems,pictures:[{key:'1',url:require('../assets/images/pasta.jpg')}],
+        reactions:61754,day:'4d.'
+    },
+    {id:'4',profileImage:require('../assets/sponsors/Shoprite.png'),
+        name:'Shoprite',subtitle:'Lowest Prices You can Trust.'
+        ,message:Lorems,pictures:[{key:'1',url:require('../assets/images/eggnet.jpg')},
+            {key:'2',url:require('../assets/images/veg.jpg')}
+        ],
+        reactions:637623376,day:'2d.'
+    },
 ]
-export {status,Lorems,defaultDataWith6Colors,samplePost,sampleStructure};
+export {status,Lorems,defaultDataWith6Colors,samplePost,sampleStructure,Uploads};
